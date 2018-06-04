@@ -749,6 +749,7 @@ function! <SID>DoxygenCommentFunc()
   if( l:doc.name != "None" )
     exec "normal A".l:doc.name.""
   endif
+  exec "normal o".s:interCommentTag.g:DoxygenToolkit_briefTag_post
   exec "normal A".g:DoxygenToolkit_briefTag_post
 
   " Mark the line where the cursor will be positionned.
