@@ -614,7 +614,7 @@ function! <SID>DoxygenCommentFunc()
   " TODO does not work when function/class/... is commented out!
   let l:readError = "Cannot reach end of function/class/... declaration!"
   let l:count = 0
-  let l:throwCompleted = 0          
+  let l:throwCompleted = 0
   let l:endReadPattern = l:endDocPattern
   while( l:endDocFound == 0 && l:count < g:DoxygenToolkit_maxFunctionProtoLines )
     let l:lineBuffer = s:RemoveComments( l:lineBuffer )
@@ -666,7 +666,7 @@ function! <SID>DoxygenCommentFunc()
 
   " Look for the type
   for key in keys( l:types )
-    "call s:WarnMsg( "[DEBUG] buffer:_".l:lineBuffer."_, test:_".l:types[key] )
+    " call s:WarnMsg( "[DEBUG] buffer:_".l:lineBuffer."_, test:_".l:types[key] )
     let l:name = matchstr( l:lineBuffer, l:types[key] )
     if( l:name != "" )
       let l:doc.type = key
