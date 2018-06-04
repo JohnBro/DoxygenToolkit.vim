@@ -747,7 +747,7 @@ function! <SID>DoxygenCommentFunc()
     exec "normal ".l:insertionMode.s:interCommentTag.g:DoxygenToolkit_briefTag_pre
   endif
   if( l:doc.name != "None" )
-    exec "normal A".l:doc.name." "
+    exec "normal A".l:doc.name.""
   endif
   exec "normal A".g:DoxygenToolkit_briefTag_post
 
