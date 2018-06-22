@@ -747,10 +747,9 @@ function! <SID>DoxygenCommentFunc()
     exec "normal ".l:insertionMode.s:interCommentTag.g:DoxygenToolkit_briefTag_pre
   endif
   if( l:doc.name != "None" )
-    exec "normal A".l:doc.name.""
+    exec "normal A".l:doc.name
   endif
   exec "normal o".s:interCommentTag.g:DoxygenToolkit_briefTag_post
-  exec "normal A".g:DoxygenToolkit_briefTag_post
 
   " Mark the line where the cursor will be positionned.
   mark d
@@ -914,22 +913,24 @@ function! s:ParseFunctionParameters( lineBuffer, doc )
   else
     let l:paramPosition = stridx( a:lineBuffer, '(', l:paramPosition )
   endif
+  let l:functionPosition = stridx( a:lineBuffer, ')') + 1
 
 
   " (cpp only) First deal with function name and returned value.
   " Function name has already been retrieved for Python and we need to parse
   " all the function definition to know whether a value is returned or not.
   if( s:CheckFileType() == "cpp" )
-    let l:functionBuffer = strpart( a:lineBuffer, 0, l:paramPosition )
+    " let l:functionBuffer = strpart( a:lineBuffer, 0, l:paramPosition )
+    let l:functionBuffer = strpart( a:lineBuffer, 0, l:functionPosition )
     " Remove unnecessary elements
     for ignored in g:DoxygenToolkit_ignoreForReturn
       let l:functionBuffer = substitute( l:functionBuffer, '\<'.ignored.'\>', '', 'g' )
     endfor
     let l:functionReturnAndName = split( l:functionBuffer, '[[:blank:]*]' )
     if( len( l:functionReturnAndName ) > 1 )
-      let a:doc.returns = 'yes'
+        let a:doc.returns = 'yes'
     endif
-    let a:doc.name = l:functionReturnAndName[-1]
+    let a:doc.name = l:functionBuffer
   endif
 
   " Work on parameters.
