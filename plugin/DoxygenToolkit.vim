@@ -913,15 +913,12 @@ function! s:ParseFunctionParameters( lineBuffer, doc )
   else
     let l:paramPosition = stridx( a:lineBuffer, '(', l:paramPosition )
   endif
-  let l:functionPosition = stridx( a:lineBuffer, ')') + 1
-
 
   " (cpp only) First deal with function name and returned value.
   " Function name has already been retrieved for Python and we need to parse
   " all the function definition to know whether a value is returned or not.
   if( s:CheckFileType() == "cpp" )
-    " let l:functionBuffer = strpart( a:lineBuffer, 0, l:paramPosition )
-    let l:functionBuffer = strpart( a:lineBuffer, 0, l:functionPosition )
+    let l:functionBuffer = strpart( a:lineBuffer, 0, l:paramPosition )
     " Remove unnecessary elements
     for ignored in g:DoxygenToolkit_ignoreForReturn
       let l:functionBuffer = substitute( l:functionBuffer, '\<'.ignored.'\>', '', 'g' )
